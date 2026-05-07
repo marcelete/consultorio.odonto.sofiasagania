@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión en Salud Dental | Dra. Sofía Saganía — Villa del Parque</title>
+    <meta name="description" content="Consultorio odontológico de la Dra. Sofía Saganía en Villa del Parque, CABA. Especialista en Prostodoncia (UBA). Atención profesional e integral.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --turquoise-dark: #008080;
+            --turquoise: #20B2AA;
+            --turquoise-light: #6FCFC8;
+            --mint: #E0F2F1;
+            --mint-light: #F4FAF9;
+            --coral: #F08080;
+            --coral-light: #FBC4C0;
+            --shadow: #2F4F4F;
+            --ink: #1A2E2E;
+            --muted: #5A6E6E;
+            --line: #D9E8E7;
+            --white: #FFFFFF;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+        a { color: inherit; }
+
+        /* Top bar */
+        .topbar {
+            background: var(--turquoise-dark);
+            color: white;
+            padding: 9px 6%;
+            font-size: 0.78rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .topbar-info { display: flex; gap: 22px; flex-wrap: wrap; }
+        .topbar-info span { display: inline-flex; align-items: center; gap: 8px; }
+        .topbar-info i { color: var(--coral-light); }
+
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 1px solid var(--line);
+            padding: 18px 6%;
+            position: sticky; top: 0; z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 4px 20px rgba(0, 128, 128, 0.08); }
+        nav {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .logo-mark {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, var(--turquoise-dark), var(--turquoise));
+            border-radius: 8px;
+            display: grid; place-items: center;
+            color: white;
+            font-size: 1.15rem;
+            box-shadow: 0 6px 14px rgba(0, 128, 128, 0.25);
+        }
+        .logo-text {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--shadow);
+            letter-spacing: -0.01em;
+            line-height: 1.1;
+        }
+        .logo-text small {
+            display: block;
+            font-weight: 400;
+            font-size: 0.7rem;
+            color: var(--turquoise-dark);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        .nav-links {
+            display: flex; align-items: center; gap: 36px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none; color: var(--shadow);
+            font-size: 0.88rem; font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .nav-links a:hover { color: var(--turquoise-dark); }
+        .btn-coral {
+            background: var(--coral);
+            color: white !important;
+            padding: 11px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 14px rgba(240, 128, 128, 0.3);
+        }
+        .btn-coral:hover {
+            background: #d96b6b;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(240, 128, 128, 0.4);
+        }
+
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+        .menu-toggle span { width: 26px; height: 2px; background: var(--shadow); transition: all 0.3s ease; }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--mint) 0%, white 60%);
+            padding: 90px 6% 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -120px;
+            width: 480px; height: 480px;
+            background: var(--turquoise);
+            opacity: 0.08;
+            border-radius: 50%;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -100px; left: 30%;
+            width: 320px; height: 320px;
+            background: var(--coral);
+            opacity: 0.06;
+            border-radius: 50%;
+        }
+        .hero-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 70px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-eyebrow {
+            display: inline-block;
+            background: white;
+            color: var(--turquoise-dark);
+            padding: 7px 16px;
+            border-radius: 4px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+            border: 1px solid var(--turquoise-light);
+        }
+        .hero h1 {
+            font-size: clamp(2.4rem, 5.4vw, 4.4rem);
+            color: var(--shadow);
+            margin-bottom: 22px;
+        }
+        .hero h1 span { color: var(--turquoise-dark); }
+        .hero p.lead {
+            color: var(--muted);
+            font-size: 1.05rem;
+            max-width: 530px;
+            margin-bottom: 32px;
+        }
+        .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+        .btn-primary {
+            background: var(--turquoise-dark);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.92rem;
+            display: inline-flex; align-items: center; gap: 10px;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 20px rgba(0, 128, 128, 0.25);
+        }
+        .btn-primary:hover { background: #006666; transform: translateY(-2px); }
+        .btn-outline {
+            background: white;
+            color: var(--turquoise-dark);
+            padding: 16px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.92rem;
+            border: 2px solid var(--turquoise-dark);
+            display: inline-flex; align-items: center; gap: 10px;
+            transition: all 0.25s ease;
+        }
+        .btn-outline:hover { background: var(--turquoise-dark); color: white; }
+
+        .hero-photo-wrap {
+            position: relative;
+            aspect-ratio: 4/5;
+            max-width: 480px;
+            margin-left: auto;
+        }
+        .hero-photo-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 30px 80px rgba(0, 128, 128, 0.25);
+        }
+        .hero-photo-wrap::before {
+            content: '';
+            position: absolute;
+            top: 30px; left: -30px;
+            width: 100%; height: 100%;
+            border: 3px solid var(--coral);
+            border-radius: 8px;
+            z-index: -1;
+        }
+        .hero-stats {
+            position: absolute;
+            bottom: -40px; left: -30px;
+            background: white;
+            padding: 22px 28px;
+            border-radius: 8px;
+            box-shadow: 0 18px 40px rgba(0, 128, 128, 0.18);
+            display: flex; gap: 28px;
+        }
+        .hero-stat strong {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.6rem;
+            color: var(--turquoise-dark);
+            display: block;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .hero-stat span {
+            font-size: 0.72rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Section */
+        section { position: relative; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 6%; }
+        .section-head { text-align: center; max-width: 720px; margin: 0 auto 60px; }
+        .section-head .eyebrow {
+            color: var(--coral);
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .section-head h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--shadow);
+            margin-bottom: 16px;
+        }
+        .section-head p { color: var(--muted); font-size: 1rem; }
+
+        /* Servicios */
+        .services {
+            padding: 110px 0;
+            background: var(--mint-light);
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .svc-card {
+            background: white;
+            padding: 32px 26px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .svc-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: var(--turquoise);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+        }
+        .svc-card:hover {
+            border-color: var(--turquoise);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 128, 128, 0.1);
+        }
+        .svc-card:hover::before { transform: scaleY(1); }
+        .svc-card:nth-child(even)::before { background: var(--coral); }
+        .svc-card:nth-child(even):hover { border-color: var(--coral); }
+        .svc-icon {
+            width: 56px; height: 56px;
+            border-radius: 12px;
+            background: var(--mint);
+            color: var(--turquoise-dark);
+            display: grid; place-items: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .svc-card:nth-child(even) .svc-icon { background: var(--coral-light); color: var(--coral); }
+        .svc-card h3 { font-size: 1.15rem; margin-bottom: 10px; color: var(--shadow); }
+        .svc-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+        /* About */
+        .about { padding: 120px 0; background: white; }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 70px;
+            align-items: center;
+        }
+        .about-photo {
+            position: relative;
+        }
+        .about-photo img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 24px 60px rgba(0, 128, 128, 0.15);
+        }
+        .about-photo .badge {
+            position: absolute;
+            top: 28px; left: -28px;
+            background: var(--turquoise-dark);
+            color: white;
+            padding: 14px 22px;
+            border-radius: 6px;
+            box-shadow: 0 12px 28px rgba(0, 128, 128, 0.3);
+        }
+        .about-photo .badge strong {
+            display: block; font-family: 'Manrope', sans-serif; font-size: 1.1rem;
+        }
+        .about-photo .badge span {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.85;
+        }
+        .about-content .eyebrow {
+            color: var(--coral);
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .about-content h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            color: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .about-content p { color: var(--muted); margin-bottom: 14px; }
+        .about-content strong { color: var(--turquoise-dark); }
+        .credentials { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+        .credential {
+            background: var(--mint-light);
+            padding: 18px;
+            border-left: 3px solid var(--turquoise);
+            border-radius: 4px;
+        }
+        .credential strong {
+            display: block;
+            color: var(--shadow);
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        .credential span {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+        .credential:nth-child(2) { border-left-color: var(--coral); }
+
+        /* Hours + Map */
+        .schedule {
+            padding: 110px 0;
+            background: var(--turquoise-dark);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .schedule::before {
+            content: '';
+            position: absolute; right: -150px; top: -100px;
+            width: 400px; height: 400px;
+            background: var(--turquoise);
+            opacity: 0.4;
+            border-radius: 50%;
+            filter: blur(40px);
+        }
+        .schedule .section-head { color: white; }
+        .schedule .section-head .eyebrow { color: var(--coral-light); }
+        .schedule .section-head h2 { color: white; }
+        .schedule .section-head p { color: rgba(255,255,255,0.8); }
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        .schedule-card {
+            background: white;
+            color: var(--ink);
+            border-radius: 8px;
+            padding: 40px 36px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+        }
+        .schedule-card h3 {
+            font-size: 1.35rem;
+            color: var(--shadow);
+            margin-bottom: 22px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .schedule-card h3 i {
+            width: 38px; height: 38px;
+            border-radius: 8px;
+            background: var(--mint);
+            color: var(--turquoise-dark);
+            display: grid; place-items: center;
+            font-size: 0.95rem;
+        }
+        .schedule-list { list-style: none; }
+        .schedule-list li {
+            display: flex; justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 0.92rem;
+        }
+        .schedule-list li:last-child { border-bottom: none; }
+        .schedule-list strong { color: var(--shadow); font-weight: 600; }
+        .schedule-list .hour-pill {
+            background: var(--mint);
+            color: var(--turquoise-dark);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+        .schedule-list .closed { color: var(--coral); font-weight: 500; }
+        .map-card-content { padding: 0; overflow: hidden; }
+        .map-frame iframe {
+            width: 100%;
+            height: 280px;
+            border: 0;
+            display: block;
+            border-radius: 6px;
+        }
+        .map-card .address {
+            margin-top: 18px;
+            font-size: 0.92rem;
+            color: var(--muted);
+        }
+        .map-card .address strong {
+            display: block;
+            color: var(--shadow);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 90px 6%;
+            background: white;
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+        .cta-section h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            color: var(--shadow);
+            margin-bottom: 14px;
+        }
+        .cta-section p {
+            color: var(--muted);
+            margin-bottom: 30px;
+            max-width: 600px; margin-left: auto; margin-right: auto;
+        }
+        .cta-section .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+        /* Footer */
+        footer {
+            background: var(--shadow);
+            color: rgba(255,255,255,0.78);
+            padding: 60px 6% 24px;
+        }
+        .footer-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        footer h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 18px;
+            font-family: 'Manrope', sans-serif;
+        }
+        footer p, footer a {
+            font-size: 0.88rem;
+            line-height: 1.8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        footer a:hover { color: var(--turquoise-light); }
+        .footer-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .social-icons { display: flex; gap: 12px; margin-top: 18px; }
+        .social-icons a {
+            width: 38px; height: 38px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: grid; place-items: center;
+            color: white;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+        }
+        .social-icons a:hover { background: var(--coral); border-color: var(--coral); transform: translateY(-2px); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.12);
+            padding-top: 22px;
+            max-width: 1300px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 0.78rem;
+            opacity: 0.6;
+        }
+
+        /* Version Switcher */
+        .version-switcher { position: fixed; bottom: 24px; right: 24px; z-index: 9999; }
+        .vs-toggle {
+            background: var(--shadow); color: white; border: none;
+            border-radius: 6px; padding: 12px 22px;
+            font-family: 'Manrope', sans-serif; font-size: 0.78rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+        }
+        .vs-toggle:hover { transform: translateY(-2px); }
+        .vs-panel {
+            position: absolute; bottom: calc(100% + 12px); right: 0;
+            background: white; border-radius: 8px;
+            padding: 18px; min-width: 280px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            display: none;
+        }
+        .vs-panel.open { display: block; }
+        .vs-panel h5 { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 4px; color: var(--shadow); }
+        .vs-panel small { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 14px; }
+        .vs-panel a {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 14px; border-radius: 6px;
+            text-decoration: none; color: var(--ink); font-size: 0.85rem;
+            transition: background 0.2s ease;
+            border: 1px solid var(--line); margin-bottom: 8px;
+        }
+        .vs-panel a:last-child { margin-bottom: 0; }
+        .vs-panel a:hover { background: var(--mint-light); }
+        .vs-panel a.active { background: var(--mint); border-color: var(--turquoise-light); color: var(--turquoise-dark); }
+        .vs-tag { font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; background: var(--mint); color: var(--turquoise-dark); font-weight: 600; }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(28px); transition: all 0.7s ease; }
+        .reveal.shown { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 980px) {
+            .hero-grid, .about-grid, .schedule-grid, .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .hero { padding: 60px 6% 80px; }
+            .hero-stats { position: static; margin-top: 30px; }
+            .credentials { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 720px) {
+            .topbar { font-size: 0.7rem; }
+            .topbar-info { gap: 14px; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%;
+                height: 100vh; width: 80%;
+                background: white;
+                flex-direction: column;
+                padding: 90px 32px;
+                gap: 22px;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+                transition: right 0.3s ease;
+            }
+            .nav-links.active { right: 0; }
+            .menu-toggle { display: flex; z-index: 1001; }
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <div class="topbar-info">
+            <span><i class="fas fa-map-marker-alt"></i> Pedro Lozano 3235 1° C, Villa del Parque</span>
+            <span><i class="far fa-clock"></i> Lun a Vie 14:00–19:00 · Mié 09:00–19:00</span>
+        </div>
+        <div class="topbar-info">
+            <span><i class="fab fa-instagram"></i> @gestionensaluddental</span>
+        </div>
+    </div>
+    <header id="header">
+        <nav>
+            <a href="#inicio" class="logo">
+                <div class="logo-mark"><i class="fas fa-tooth"></i></div>
+                <div class="logo-text">
+                    Gestión en Salud Dental
+                    <small>Dra. Sofía Saganía</small>
+                </div>
+            </a>
+            <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Abrir menú">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio" onclick="closeMenu()">Inicio</a></li>
+                <li><a href="#servicios" onclick="closeMenu()">Tratamientos</a></li>
+                <li><a href="#sobre-mi" onclick="closeMenu()">Profesional</a></li>
+                <li><a href="#horarios" onclick="closeMenu()">Horarios</a></li>
+                <li><a href="contacto.html" class="btn-coral">Solicitar turno</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="hero-grid">
+            <div class="hero-text reveal">
+                <span class="hero-eyebrow">Odontología integral · UBA</span>
+                <h1>Salud bucal con <span>profesionalismo y calidez</span>.</h1>
+                <p class="lead">En Gestión en Salud Dental cuidamos tu sonrisa con tecnología actualizada, materiales de primer nivel y un trato cercano. Atendemos en Villa del Parque, CABA.</p>
+                <div class="hero-cta">
+                    <a href="contacto.html" class="btn-primary">
+                        <i class="far fa-calendar-check"></i> Pedir turno
+                    </a>
+                    <a href="#servicios" class="btn-outline">Ver tratamientos</a>
+                </div>
+            </div>
+            <div class="hero-photo-wrap reveal">
+                <img src="../img/Dra. Saganía 4.png" alt="Dra. Sofía Saganía">
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <strong>11+</strong>
+                        <span>Tratamientos</span>
+                    </div>
+                    <div class="hero-stat">
+                        <strong>UBA</strong>
+                        <span>Formación</span>
+                    </div>
+                    <div class="hero-stat">
+                        <strong>100%</strong>
+                        <span>Personalizado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="services">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="eyebrow">Tratamientos</span>
+                <h2>Atención odontológica integral.</h2>
+                <p>Una propuesta completa pensada para acompañar tu salud bucal a lo largo del tiempo.</p>
+            </div>
+            <div class="services-grid">
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-tooth"></i></div>
+                    <h3>Limpieza dental</h3>
+                    <p>Higiene profesional con eliminación de sarro y placa bacteriana.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Obturación dental</h3>
+                    <p>Tratamiento de caries con resinas estéticas y duraderas.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Extracciones</h3>
+                    <p>Procedimientos seguros, con anestesia y mínima molestia.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-crown"></i></div>
+                    <h3>Prótesis fija</h3>
+                    <p>Coronas y puentes de alta estética para sonrisas armónicas.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-teeth"></i></div>
+                    <h3>Prótesis removible</h3>
+                    <p>Soluciones cómodas a medida para reemplazo de piezas.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-magic"></i></div>
+                    <h3>Blanqueamiento</h3>
+                    <p>Tratamientos profesionales para una sonrisa más luminosa.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-bed"></i></div>
+                    <h3>Placa de bruxismo</h3>
+                    <p>Protección contra el desgaste por apretamiento dental nocturno.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-running"></i></div>
+                    <h3>Protector bucal</h3>
+                    <p>Protectores deportivos personalizados para evitar lesiones.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-file-medical"></i></div>
+                    <h3>Certificado bucodental</h3>
+                    <p>Emisión de certificados para trabajo, escuela o club.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-spa"></i></div>
+                    <h3>Selladores de fosas y fisuras</h3>
+                    <p>Prevención eficaz de caries en niños y adolescentes.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-icon"><i class="fas fa-tint"></i></div>
+                    <h3>Aplicación de flúor</h3>
+                    <p>Refuerzo del esmalte para prevenir caries y fortalecer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre-mi" class="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-photo reveal">
+                    <img src="../img/Dra. Saganía 8.jpeg" alt="Dra. Sofía Luciana Saganía">
+                    <div class="badge">
+                        <strong>Dra. Saganía</strong>
+                        <span>Odontóloga UBA</span>
+                    </div>
+                </div>
+                <div class="about-content reveal">
+                    <span class="eyebrow">Sobre la profesional</span>
+                    <h2>Una odontología cercana, técnica y precisa.</h2>
+                    <p>Soy <strong>Sofía Luciana Saganía</strong>, odontóloga recibida en la <strong>Universidad de Buenos Aires</strong> con especialización en <strong>Prostodoncia</strong>: la rama dedicada a restaurar y reemplazar piezas dentarias para devolver función y estética a tu sonrisa.</p>
+                    <p>Mi compromiso es ofrecer un servicio profesional con materiales de calidad y un trato humano, donde te sientas escuchada y comprendida en cada consulta.</p>
+                    <div class="credentials">
+                        <div class="credential">
+                            <strong>Universidad de Buenos Aires</strong>
+                            <span>Odontóloga matriculada</span>
+                        </div>
+                        <div class="credential">
+                            <strong>Prostodoncia</strong>
+                            <span>Especialización</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="horarios" class="schedule">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="eyebrow">Horarios y ubicación</span>
+                <h2>Cuándo y dónde encontrarnos.</h2>
+                <p>Atendemos con turno previo. Reservá el tuyo desde la web o por WhatsApp.</p>
+            </div>
+            <div class="schedule-grid">
+                <div class="schedule-card reveal">
+                    <h3><i class="far fa-clock"></i> Horarios</h3>
+                    <ul class="schedule-list">
+                        <li><strong>Lunes</strong><span class="hour-pill">14:00 – 19:00</span></li>
+                        <li><strong>Martes</strong><span class="hour-pill">14:00 – 19:00</span></li>
+                        <li><strong>Miércoles</strong><span class="hour-pill">09:00 – 19:00</span></li>
+                        <li><strong>Jueves</strong><span class="hour-pill">14:00 – 19:00</span></li>
+                        <li><strong>Viernes</strong><span class="hour-pill">14:00 – 19:00</span></li>
+                        <li><strong>Sábado y Domingo</strong><span class="closed">Cerrado</span></li>
+                    </ul>
+                </div>
+                <div class="schedule-card map-card reveal">
+                    <h3><i class="fas fa-map-marker-alt"></i> Ubicación</h3>
+                    <div class="map-frame">
+                        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-58.4880%2C-34.6020%2C-58.4780%2C-34.5950&layer=mapnik&marker=-34.5985%2C-58.4830" loading="lazy" title="Ubicación del consultorio"></iframe>
+                    </div>
+                    <div class="address">
+                        <strong>Pedro Lozano 3235, 1° C</strong>
+                        Villa del Parque, Ciudad Autónoma de Buenos Aires.<br>
+                        A pocas cuadras de la estación Villa del Parque (Línea San Martín).
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="reveal">
+            <h2>¿Listo para reservar tu turno?</h2>
+            <p>Completá el formulario y te contactamos a la brevedad para confirmar día y horario.</p>
+            <div class="cta-buttons">
+                <a href="contacto.html" class="btn-primary">
+                    <i class="far fa-calendar-check"></i> Solicitar turno
+                </a>
+                <a href="https://wa.me/" target="_blank" class="btn-outline">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>Gestión en Salud Dental</h4>
+                <p>Consultorio odontológico de la Dra. Sofía Saganía. Atención integral en Villa del Parque, CABA.</p>
+                <div class="social-icons">
+                    <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:contacto@gestionensaluddental.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Navegar</h4>
+                <ul class="footer-list">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Tratamientos</a></li>
+                    <li><a href="#sobre-mi">Profesional</a></li>
+                    <li><a href="#horarios">Horarios</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Tratamientos</h4>
+                <ul class="footer-list">
+                    <li><a href="#servicios">Limpieza</a></li>
+                    <li><a href="#servicios">Prótesis</a></li>
+                    <li><a href="#servicios">Blanqueamiento</a></li>
+                    <li><a href="#servicios">Bruxismo</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contacto</h4>
+                <ul class="footer-list">
+                    <li><i class="fas fa-map-marker-alt"></i>&nbsp; Pedro Lozano 3235 1° C</li>
+                    <li><i class="fas fa-city"></i>&nbsp; Villa del Parque, CABA</li>
+                    <li><a href="contacto.html">Solicitar turno →</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Gestión en Salud Dental — Dra. Sofía Saganía · Todos los derechos reservados
+        </div>
+    </footer>
+
+    <!-- Version Switcher -->
+    <div class="version-switcher" id="versionSwitcher">
+        <button class="vs-toggle" onclick="toggleVersionPanel()">
+            <i class="fas fa-palette"></i> Ver versiones
+        </button>
+        <div class="vs-panel" id="vsPanel">
+            <h5>Variantes de diseño</h5>
+            <small>Comparativa para la elección final</small>
+            <a href="../index.html">
+                <span><strong>v1</strong> · Pastel verde/rosa</span>
+                <span class="vs-tag" style="background:#FCE4E8; color:#C97A82;">Pastel</span>
+            </a>
+            <a href="index.html" class="active">
+                <span><strong>v2</strong> · Turquesa & coral</span>
+                <span class="vs-tag">Actual</span>
+            </a>
+            <a href="../v3-mezcla/index.html">
+                <span><strong>v3</strong> · Editorial moderna</span>
+                <span class="vs-tag" style="background:#FFE0D6; color:#D67D5C;">Mezcla</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 30);
+        }, { passive: true });
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+            document.getElementById('menuToggle').classList.toggle('active');
+        }
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('active');
+            document.getElementById('menuToggle').classList.remove('active');
+        }
+
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('shown'); });
+        }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        function toggleVersionPanel() {
+            document.getElementById('vsPanel').classList.toggle('open');
+        }
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#versionSwitcher')) {
+                document.getElementById('vsPanel').classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
