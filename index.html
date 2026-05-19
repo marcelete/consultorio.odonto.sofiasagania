@@ -548,6 +548,67 @@
             border: 0;
         }
 
+        .building-photo {
+            margin-top: 22px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: white;
+        }
+        .building-photo img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+        .building-photo .ph-fallback {
+            display: none;
+            aspect-ratio: 16 / 10;
+            background: linear-gradient(135deg, var(--pink-50), var(--green-50));
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 26px;
+            gap: 8px;
+        }
+        .building-photo .ph-fallback i {
+            font-size: 1.8rem;
+            color: var(--pink-400);
+            margin-bottom: 6px;
+        }
+        .building-photo .ph-fallback strong {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            color: var(--ink);
+            font-size: 1.05rem;
+        }
+        .building-photo .ph-fallback small {
+            color: var(--muted);
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+        .building-photo .ph-fallback code {
+            background: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            color: var(--green-700);
+            border: 1px solid var(--border);
+        }
+        .building-photo figcaption {
+            padding: 12px 18px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+            background: var(--cream);
+        }
+        .building-photo figcaption i { color: var(--pink-600); }
+        .building-photo figcaption strong { color: var(--ink); font-weight: 500; }
+
         /* Contactame */
         .contact {
             padding: 110px 6%;
@@ -1073,8 +1134,30 @@
                         <p><i class="fas fa-train"></i><span>A pocas cuadras de la estación Villa del Parque (Línea San Martín).</span></p>
                     </div>
                     <div class="map-frame">
-                        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-58.4880%2C-34.6020%2C-58.4780%2C-34.5950&layer=mapnik&marker=-34.5985%2C-58.4830" loading="lazy" title="Ubicación del consultorio"></iframe>
+                        <iframe
+                            src="https://www.google.com/maps?q=Pedro+Lozano+3235,+Villa+del+Parque,+CABA&z=17&output=embed"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Ubicación del consultorio en Google Maps"
+                            allowfullscreen></iframe>
                     </div>
+
+                    <figure class="building-photo">
+                        <img
+                            src="img/frente-edificio.jpg"
+                            alt="Frente del edificio del consultorio en Pedro Lozano 3235"
+                            loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="ph-fallback">
+                            <i class="fas fa-camera-retro"></i>
+                            <strong>Foto del frente del edificio</strong>
+                            <small>Para que sea más fácil ubicarlo desde la vereda.<br>Subila como <code>img/frente-edificio.jpg</code></small>
+                        </div>
+                        <figcaption>
+                            <i class="fas fa-camera"></i>
+                            <span><strong>El frente del edificio</strong> · así no te perdés cuando llegues</span>
+                        </figcaption>
+                    </figure>
                 </div>
             </div>
         </div>
