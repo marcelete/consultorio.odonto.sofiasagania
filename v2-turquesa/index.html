@@ -66,15 +66,12 @@
             display: flex; align-items: center; justify-content: space-between;
         }
         .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-        .logo-mark {
-            width: 44px; height: 44px;
-            background: linear-gradient(135deg, var(--turquoise-dark), var(--turquoise));
-            border-radius: 8px;
-            display: grid; place-items: center;
-            color: white;
-            font-size: 1.15rem;
-            box-shadow: 0 6px 14px rgba(0, 128, 128, 0.25);
+        .logo-img {
+            width: 50px; height: 50px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
         }
+        .logo:hover .logo-img { transform: scale(1.05); }
         .logo-text {
             font-family: 'Manrope', sans-serif;
             font-weight: 700;
@@ -627,7 +624,7 @@
     <header id="header">
         <nav>
             <a href="#inicio" class="logo">
-                <div class="logo-mark"><i class="fas fa-tooth"></i></div>
+                <img src="../img/Logo GES.png" alt="Gestión en Salud Dental" class="logo-img">
                 <div class="logo-text">
                     Gestión en Salud Dental
                     <small>Dra. Sofía Saganía</small>
@@ -638,10 +635,10 @@
             </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#inicio" onclick="closeMenu()">Inicio</a></li>
-                <li><a href="#servicios" onclick="closeMenu()">Tratamientos</a></li>
-                <li><a href="#sobre-mi" onclick="closeMenu()">Profesional</a></li>
+                <li><a href="#sobre-mi" onclick="closeMenu()">Sobre mí</a></li>
+                <li><a href="#servicios" onclick="closeMenu()">Servicios</a></li>
                 <li><a href="#horarios" onclick="closeMenu()">Horarios</a></li>
-                <li><a href="contacto.html" class="btn-coral">Solicitar turno</a></li>
+                <li><a href="#" class="btn-coral wa-link" onclick="closeMenu()"><i class="fab fa-whatsapp"></i> Contactame</a></li>
             </ul>
         </nav>
     </header>
@@ -653,8 +650,8 @@
                 <h1>Salud bucal con <span>profesionalismo y calidez</span>.</h1>
                 <p class="lead">En Gestión en Salud Dental cuidamos tu sonrisa con tecnología actualizada, materiales de primer nivel y un trato cercano. Atendemos en Villa del Parque, CABA.</p>
                 <div class="hero-cta">
-                    <a href="contacto.html" class="btn-primary">
-                        <i class="far fa-calendar-check"></i> Pedir turno
+                    <a href="#" class="btn-primary wa-link">
+                        <i class="fab fa-whatsapp"></i> Contactame por un turno
                     </a>
                     <a href="#servicios" class="btn-outline">Ver tratamientos</a>
                 </div>
@@ -810,16 +807,16 @@
         </div>
     </section>
 
-    <section class="cta-section">
+    <section id="contactame" class="cta-section">
         <div class="reveal">
-            <h2>¿Listo para reservar tu turno?</h2>
-            <p>Completá el formulario y te contactamos a la brevedad para confirmar día y horario.</p>
+            <h2>Contactame por un turno.</h2>
+            <p>La forma más rápida de coordinar tu visita es por WhatsApp. Escribime y te respondo personalmente.</p>
             <div class="cta-buttons">
-                <a href="contacto.html" class="btn-primary">
-                    <i class="far fa-calendar-check"></i> Solicitar turno
+                <a href="#" class="btn-primary wa-link">
+                    <i class="fab fa-whatsapp"></i> Escribime por WhatsApp
                 </a>
-                <a href="https://wa.me/5491140903128" target="_blank" class="btn-outline">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
+                <a href="#" target="_blank" class="btn-outline ig-link">
+                    <i class="fab fa-instagram"></i> Instagram
                 </a>
             </div>
         </div>
@@ -831,8 +828,8 @@
                 <h4>Gestión en Salud Dental</h4>
                 <p>Consultorio odontológico de la Dra. Sofía Saganía. Atención integral en Villa del Parque, CABA.</p>
                 <div class="social-icons">
-                    <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/5491140903128" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" target="_blank" aria-label="Instagram" class="ig-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank" aria-label="WhatsApp" class="wa-link"><i class="fab fa-whatsapp"></i></a>
                     <a href="mailto:contacto@gestionensaluddental.com" aria-label="Email"><i class="far fa-envelope"></i></a>
                 </div>
             </div>
@@ -840,9 +837,10 @@
                 <h4>Navegar</h4>
                 <ul class="footer-list">
                     <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Tratamientos</a></li>
-                    <li><a href="#sobre-mi">Profesional</a></li>
+                    <li><a href="#sobre-mi">Sobre mí</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#horarios">Horarios</a></li>
+                    <li><a href="#contactame">Contactame</a></li>
                 </ul>
             </div>
             <div>
@@ -859,7 +857,7 @@
                 <ul class="footer-list">
                     <li><i class="fas fa-map-marker-alt"></i>&nbsp; Pedro Lozano 3235 1° C</li>
                     <li><i class="fas fa-city"></i>&nbsp; Villa del Parque, CABA</li>
-                    <li><a href="contacto.html">Solicitar turno →</a></li>
+                    <li><a href="#" class="wa-link"><i class="fab fa-whatsapp"></i>&nbsp; Contactame →</a></li>
                 </ul>
             </div>
         </div>
@@ -878,20 +876,32 @@
             <small>Comparativa para la elección final</small>
             <a href="../index.html">
                 <span><strong>v1</strong> · Pastel verde/rosa</span>
-                <span class="vs-tag" style="background:#FCE4E8; color:#C97A82;">Pastel</span>
+                <span class="vs-tag" style="background:#FCE4E8; color:#C97A82;">Elegida</span>
             </a>
             <a href="index.html" class="active">
                 <span><strong>v2</strong> · Turquesa & coral</span>
-                <span class="vs-tag">Actual</span>
-            </a>
-            <a href="../v3-mezcla/index.html">
-                <span><strong>v3</strong> · Editorial moderna</span>
-                <span class="vs-tag" style="background:#FFE0D6; color:#D67D5C;">Mezcla</span>
+                <span class="vs-tag">Referencia</span>
             </a>
         </div>
     </div>
 
     <script>
+        // === CONFIGURACIÓN ===
+        // Reemplazar WA_NUMBER con el número de WhatsApp del consultorio (sin '+', con código de país).
+        const WA_NUMBER = '5491140903128';
+        const IG_USER = 'gestionensaluddental';
+
+        const waMsg = 'Hola Dra. Saganía! Me gustaría coordinar un turno. ¿Qué disponibilidad tienen?';
+        const waBase = WA_NUMBER && !WA_NUMBER.startsWith('REEMPLAZAR') ? WA_NUMBER : '';
+        const waUrl = `https://wa.me/${waBase}?text=${encodeURIComponent(waMsg)}`;
+        document.querySelectorAll('.wa-link').forEach(el => {
+            el.href = waUrl; el.target = '_blank'; el.rel = 'noopener';
+        });
+        const igUrl = `https://instagram.com/${IG_USER}`;
+        document.querySelectorAll('.ig-link').forEach(el => {
+            el.href = igUrl; el.target = '_blank'; el.rel = 'noopener';
+        });
+
         window.addEventListener('scroll', () => {
             document.getElementById('header').classList.toggle('scrolled', window.scrollY > 30);
         }, { passive: true });

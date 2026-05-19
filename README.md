@@ -2,17 +2,28 @@
 
 Sitio web del consultorio odontológico de la Dra. Sofía Luciana Saganía, en Villa del Parque, CABA.
 
-Este repositorio contiene **tres variantes de diseño** para que la clienta elija la que mejor represente al consultorio. Cada versión propone una estética y funcionalidad distintas.
+## Estado actual
 
-## Variantes disponibles
+**v1 (raíz)** es la versión elegida y la que se está iterando. **v2** queda guardada como referencia visual por si rescatamos elementos. v3 fue descartada.
 
-| Versión | Ruta | Estética | Funcionalidad |
+Sofía no quiere un sistema de turnos: prefiere manejar la agenda ella misma. Todas las acciones de "reservar / pedir turno" abren WhatsApp directamente con un mensaje pre-armado.
+
+## Variantes
+
+| Versión | Ruta | Estética | Estado |
 |---|---|---|---|
-| **v1** — Pastel verde/rosa | [`/index.html`](index.html) (raíz) | Suave, cálida, femenina. Tipografía serif elegante (Fraunces). | Turnero completo: calendario + selección de horario + formulario + integración con Google Apps Script. |
-| **v2** — Turquesa & coral | [`/v2-turquesa/index.html`](v2-turquesa/index.html) | Clínica, profesional, fiel a la paleta del flyer existente. Tipografía geométrica (Manrope). | Formulario de contacto completo. Envío por Apps Script o `mailto:` como fallback. |
-| **v3** — Editorial moderna | [`/v3-mezcla/index.html`](v3-mezcla/index.html) | Minimal, contemporánea, mezcla de tonos sage y peach. Tipografía editorial (Cormorant Garamond). | Solo CTAs por WhatsApp con mensajes pre-armados por servicio. Sin formularios. |
+| **v1** | [`/index.html`](index.html) (raíz) | Pastel verde/rosa, tipografía serif elegante (Fraunces). | **Elegida** |
+| **v2** | [`/v2-turquesa/index.html`](v2-turquesa/index.html) | Turquesa/coral del flyer, tipografía geométrica (Manrope). | Referencia |
 
-Cada versión incluye un **selector flotante "Ver versiones"** (esquina inferior derecha) para saltar entre las variantes durante la revisión.
+Ambas tienen un selector flotante "Ver versiones" (esquina inferior derecha) para alternar durante la revisión.
+
+## Orden de secciones (v1)
+
+1. Inicio (hero)
+2. Sobre mí (Dra. Saganía)
+3. Servicios (los 11 tratamientos)
+4. Horarios (atención + ubicación con mapa)
+5. Contactame (CTA grande con WhatsApp + Instagram)
 
 ## Datos del consultorio
 
@@ -23,56 +34,39 @@ Cada versión incluye un **selector flotante "Ver versiones"** (esquina inferior
 
 ## Configuración pendiente
 
-Los siguientes valores deben reemplazarse antes de publicar la versión elegida:
+En `index.html` (y también `v2-turquesa/index.html` si se quiere mantener funcional como referencia) buscar y reemplazar:
 
-### v1 (turnero completo) — `turnero.html`
 ```js
-const GOOGLE_SCRIPT_URL = 'REEMPLAZAR_CON_URL_APPS_SCRIPT';
-const WA_NUMBER = 'REEMPLAZAR_CON_NUMERO_WSP';
+const WA_NUMBER = '5491140903128';   // Ya configurado (+54 9 11 4090-3128)
+const IG_USER = 'gestionensaluddental';   // Confirmar usuario real de Instagram
 ```
 
-### v2 (formulario) — `v2-turquesa/contacto.html`
-```js
-const GOOGLE_SCRIPT_URL = '';                 // Opcional, si vacío usa mailto
-const WA_NUMBER = 'REEMPLAZAR_CON_NUMERO_WSP';
-const EMAIL_TO = 'contacto@gestionensaluddental.com';
+Adicionalmente, agregar el archivo del logo:
+
+```
+img/Logo GES.png
 ```
 
-### v3 (WhatsApp) — `v3-mezcla/index.html`
-```js
-const WA_NUMBER = 'REEMPLAZAR_CON_NUMERO_WSP';
-```
+(la página ya lo referencia en el navbar y el footer; falta subir el archivo binario al repo)
 
-Adicionalmente, en todas las versiones revisar:
-- Enlaces de Instagram (`href="#"` en los íconos sociales).
-- Email de contacto en el footer.
-- Coordenadas del mapa OpenStreetMap (actualmente apunta a una zona aproximada de Villa del Parque).
+Email del footer (`contacto@gestionensaluddental.com`) y coordenadas del mapa también pueden ajustarse si hace falta.
 
 ## Estructura
 
 ```
 .
-├── index.html              # v1 (raíz)
-├── turnero.html            # v1 — sistema de turnos
+├── index.html              # v1 (raíz) — versión elegida
 ├── v2-turquesa/
-│   ├── index.html          # v2
-│   └── contacto.html       # v2 — formulario
-├── v3-mezcla/
-│   └── index.html          # v3 (todo en una página)
+│   ├── index.html          # v2 — referencia
+│   └── contacto.html       # formulario de contacto (sin enlazar, para rescate)
 ├── img/
+│   ├── Logo GES.png        # ← pendiente de subir
 │   ├── Dra. Saganía 2.png
 │   ├── Dra. Saganía 4.png
 │   └── Dra. Saganía 8.jpeg
 ├── CNAME
 └── README.md
 ```
-
-## Próximos pasos
-
-1. La clienta revisa las 3 variantes y elige la que prefiera.
-2. Se ajustan textos finales, colores secundarios y detalles puntuales.
-3. Se completan los valores de configuración (WhatsApp, email, Apps Script si aplica).
-4. Se publica la versión elegida en la raíz y se eliminan las descartadas.
 
 ---
 

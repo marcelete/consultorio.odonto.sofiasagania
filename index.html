@@ -8,6 +8,7 @@
     <meta property="og:title" content="Gestión en Salud Dental | Dra. Sofía Saganía">
     <meta property="og:description" content="Odontología integral con calidez y profesionalismo. Atendemos en Villa del Parque, CABA.">
     <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="img/Logo GES.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -28,6 +29,8 @@
             --ink: #2A3A2C;
             --muted: #6B7264;
             --border: #ECE6DE;
+            --whatsapp: #25D366;
+            --whatsapp-dark: #1ebe57;
         }
 
         html { scroll-behavior: smooth; }
@@ -60,69 +63,74 @@
         header {
             position: fixed; top: 0; left: 0; right: 0;
             z-index: 1000;
-            background: rgba(250, 247, 244, 0.85);
+            background: rgba(250, 247, 244, 0.92);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid transparent;
             transition: all 0.3s ease;
         }
         header.scrolled {
-            background: rgba(250, 247, 244, 0.95);
+            background: rgba(250, 247, 244, 0.97);
             border-bottom-color: var(--border);
             box-shadow: 0 2px 24px rgba(79, 124, 77, 0.06);
         }
         nav {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 22px 6%;
+            padding: 16px 6%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: padding 0.3s ease;
+            gap: 24px;
+            transition: padding 0.25s ease;
         }
-        header.scrolled nav { padding: 14px 6%; }
+        header.scrolled nav { padding: 10px 6%; }
 
         .logo {
             display: flex; align-items: center; gap: 12px;
             text-decoration: none;
+            flex-shrink: 0;
         }
-        .logo-mark {
-            width: 38px; height: 38px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--green-200), var(--pink-200));
-            display: grid; place-items: center;
-            color: var(--green-700);
-            font-size: 1rem;
+        .logo-img {
+            width: 46px;
+            height: 46px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
         }
+        header.scrolled .logo-img { width: 40px; height: 40px; }
+        .logo:hover .logo-img { transform: scale(1.05); }
         .logo-text {
             font-size: 1.05rem;
             color: var(--ink);
             line-height: 1.1;
+            white-space: nowrap;
         }
         .logo-text small {
             display: block;
             font-family: 'DM Sans', sans-serif;
-            font-size: 0.62rem;
-            letter-spacing: 0.25em;
+            font-size: 0.6rem;
+            letter-spacing: 0.24em;
             text-transform: uppercase;
             color: var(--muted);
-            margin-top: 2px;
+            margin-top: 3px;
+            font-weight: 500;
         }
 
         .nav-links {
-            display: flex; align-items: center; gap: 34px;
+            display: flex; align-items: center; gap: 30px;
             list-style: none;
         }
         .nav-links a {
             text-decoration: none;
             color: var(--ink);
-            font-size: 0.85rem;
+            font-size: 0.86rem;
             font-weight: 500;
             position: relative;
+            padding: 6px 0;
             transition: color 0.25s ease;
         }
         .nav-links a:not(.btn-pill)::after {
             content: '';
-            position: absolute; bottom: -6px; left: 0;
+            position: absolute; bottom: 0; left: 0;
             width: 0; height: 2px;
             background: var(--pink-400);
             transition: width 0.3s ease;
@@ -133,30 +141,35 @@
         .btn-pill {
             background: var(--green-600);
             color: white !important;
-            padding: 11px 26px;
+            padding: 10px 22px;
             border-radius: 999px;
             font-size: 0.8rem;
             font-weight: 600;
+            display: inline-flex; align-items: center; gap: 8px;
             transition: all 0.25s ease;
-            box-shadow: 0 6px 20px rgba(79, 124, 77, 0.22);
+            box-shadow: 0 6px 18px rgba(79, 124, 77, 0.22);
         }
         .btn-pill:hover {
             background: var(--green-700);
             transform: translateY(-2px);
-            box-shadow: 0 10px 28px rgba(79, 124, 77, 0.32);
+            box-shadow: 0 10px 24px rgba(79, 124, 77, 0.32);
         }
 
         .menu-toggle {
             display: none;
             flex-direction: column;
             gap: 5px;
-            background: none; border: none; cursor: pointer;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
             padding: 6px;
         }
         .menu-toggle span {
             width: 24px; height: 2px;
             background: var(--ink);
             transition: all 0.3s ease;
+            border-radius: 2px;
         }
         .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
         .menu-toggle.active span:nth-child(2) { opacity: 0; }
@@ -165,7 +178,7 @@
         /* Hero */
         .hero {
             position: relative;
-            padding: 160px 6% 120px;
+            padding: 150px 6% 110px;
             overflow: hidden;
         }
         .hero-grid {
@@ -202,8 +215,8 @@
             background: var(--green-400);
         }
         .hero h1 {
-            font-size: clamp(2.4rem, 5.2vw, 4.4rem);
-            line-height: 1.05;
+            font-size: clamp(2.2rem, 5vw, 4.2rem);
+            line-height: 1.08;
             margin-bottom: 24px;
             color: var(--ink);
         }
@@ -216,7 +229,7 @@
             font-size: 1.05rem;
             color: var(--muted);
             margin-bottom: 38px;
-            max-width: 520px;
+            max-width: 540px;
         }
         .hero-cta {
             display: flex; gap: 16px; flex-wrap: wrap;
@@ -237,6 +250,23 @@
             background: var(--green-700);
             transform: translateY(-2px);
             box-shadow: 0 12px 32px rgba(79, 124, 77, 0.35);
+        }
+        .btn-wa {
+            background: var(--whatsapp);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 10px;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.28);
+        }
+        .btn-wa:hover {
+            background: var(--whatsapp-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.4);
         }
         .btn-ghost {
             background: white;
@@ -285,36 +315,18 @@
             box-shadow: 0 18px 40px rgba(42, 58, 44, 0.12);
             display: flex; align-items: center; gap: 14px;
         }
-        .hero-badge.b-top {
-            top: 30px; left: -40px;
-        }
-        .hero-badge.b-bottom {
-            bottom: 40px; right: -30px;
-        }
+        .hero-badge.b-top { top: 30px; left: -40px; }
+        .hero-badge.b-bottom { bottom: 40px; right: -30px; }
         .hero-badge i {
             width: 42px; height: 42px;
             border-radius: 50%;
             display: grid; place-items: center;
             font-size: 1rem;
         }
-        .hero-badge.b-top i {
-            background: var(--pink-100);
-            color: var(--pink-600);
-        }
-        .hero-badge.b-bottom i {
-            background: var(--green-100);
-            color: var(--green-700);
-        }
-        .hero-badge strong {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-        .hero-badge span {
-            font-size: 0.72rem;
-            color: var(--muted);
-        }
+        .hero-badge.b-top i { background: var(--pink-100); color: var(--pink-600); }
+        .hero-badge.b-bottom i { background: var(--green-100); color: var(--green-700); }
+        .hero-badge strong { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+        .hero-badge span { font-size: 0.72rem; color: var(--muted); }
 
         /* Sections */
         section { position: relative; }
@@ -337,64 +349,12 @@
             font-size: 1.02rem;
         }
 
-        /* Servicios */
-        .services {
-            padding: 120px 0;
-            background: white;
-            position: relative;
-        }
-        .services::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--pink-200), transparent);
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 22px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .svc-card {
-            background: var(--cream);
-            border-radius: 22px;
-            padding: 30px;
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        .svc-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--pink-200);
-            box-shadow: 0 16px 40px rgba(201, 122, 130, 0.12);
-        }
-        .svc-icon {
-            width: 54px; height: 54px;
-            border-radius: 16px;
-            display: grid; place-items: center;
-            font-size: 1.25rem;
-        }
-        .svc-card:nth-child(3n+1) .svc-icon { background: var(--green-100); color: var(--green-700); }
-        .svc-card:nth-child(3n+2) .svc-icon { background: var(--pink-100); color: var(--pink-600); }
-        .svc-card:nth-child(3n+3) .svc-icon { background: var(--green-50); color: var(--green-600); }
-        .svc-card h3 {
-            font-size: 1.25rem;
-            color: var(--ink);
-        }
-        .svc-card p {
-            font-size: 0.9rem;
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        /* Sobre la Dra */
+        /* Sobre mí */
         .about {
             padding: 130px 0;
             position: relative;
             overflow: hidden;
+            background: white;
         }
         .about::before {
             content: '';
@@ -465,6 +425,59 @@
             flex-shrink: 0;
         }
 
+        /* Servicios */
+        .services {
+            padding: 120px 0;
+            background: var(--cream);
+            position: relative;
+        }
+        .services::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--pink-200), transparent);
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .svc-card {
+            background: white;
+            border-radius: 22px;
+            padding: 30px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .svc-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--pink-200);
+            box-shadow: 0 16px 40px rgba(201, 122, 130, 0.12);
+        }
+        .svc-icon {
+            width: 54px; height: 54px;
+            border-radius: 16px;
+            display: grid; place-items: center;
+            font-size: 1.25rem;
+        }
+        .svc-card:nth-child(3n+1) .svc-icon { background: var(--green-100); color: var(--green-700); }
+        .svc-card:nth-child(3n+2) .svc-icon { background: var(--pink-100); color: var(--pink-600); }
+        .svc-card:nth-child(3n+3) .svc-icon { background: var(--green-50); color: var(--green-600); }
+        .svc-card h3 {
+            font-size: 1.25rem;
+            color: var(--ink);
+        }
+        .svc-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
         /* Horarios + Ubicación */
         .info {
             padding: 120px 0;
@@ -492,12 +505,8 @@
             display: grid; place-items: center;
             font-size: 1rem;
         }
-        .info-card.green h3 i {
-            background: var(--green-100); color: var(--green-700);
-        }
-        .info-card.pink h3 i {
-            background: var(--pink-100); color: var(--pink-600);
-        }
+        .info-card.green h3 i { background: var(--green-100); color: var(--green-700); }
+        .info-card.pink h3 i { background: var(--pink-100); color: var(--pink-600); }
         .schedule-list {
             list-style: none;
             display: flex; flex-direction: column; gap: 12px;
@@ -539,16 +548,16 @@
             border: 0;
         }
 
-        /* CTA */
-        .cta {
-            padding: 100px 6%;
+        /* Contactame */
+        .contact {
+            padding: 110px 6%;
             background: linear-gradient(135deg, var(--green-600), var(--green-700));
             color: white;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
-        .cta::before {
+        .contact::before {
             content: '';
             position: absolute;
             top: -100px; right: -100px;
@@ -558,38 +567,90 @@
             border-radius: 50%;
             filter: blur(60px);
         }
-        .cta-content { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
-        .cta h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 20px;
+        .contact::after {
+            content: '';
+            position: absolute;
+            bottom: -120px; left: -100px;
+            width: 340px; height: 340px;
+            background: var(--pink-200);
+            opacity: 0.18;
+            border-radius: 50%;
+            filter: blur(70px);
         }
-        .cta p {
+        .contact-content { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+        .contact h2 {
+            font-size: clamp(2rem, 4.4vw, 3.2rem);
+            margin-bottom: 18px;
+        }
+        .contact p {
             font-size: 1.05rem;
-            opacity: 0.9;
+            opacity: 0.92;
             margin-bottom: 36px;
+            line-height: 1.75;
         }
-        .btn-cta {
-            display: inline-flex; align-items: center; gap: 12px;
+        .contact-buttons {
+            display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+        }
+        .btn-contact-wa {
             background: white;
             color: var(--green-700);
-            padding: 18px 40px;
+            padding: 18px 36px;
             border-radius: 999px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
+            display: inline-flex; align-items: center; gap: 12px;
             transition: all 0.3s ease;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
         }
-        .btn-cta:hover {
+        .btn-contact-wa:hover {
             transform: translateY(-3px);
             box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+            color: var(--whatsapp-dark);
         }
+        .btn-contact-wa i { color: var(--whatsapp); font-size: 1.2rem; }
+        .btn-contact-ig {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            padding: 18px 30px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+        .btn-contact-ig:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+        }
+        .contact-details {
+            margin-top: 50px;
+            padding-top: 36px;
+            border-top: 1px solid rgba(255,255,255,0.18);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            font-size: 0.9rem;
+        }
+        .contact-detail i {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            opacity: 0.85;
+        }
+        .contact-detail strong {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .contact-detail span { opacity: 0.82; }
 
         /* Footer */
         footer {
             background: var(--ink);
             color: rgba(255, 255, 255, 0.78);
-            padding: 70px 6% 30px;
+            padding: 60px 6% 28px;
         }
         .footer-grid {
             max-width: 1300px;
@@ -597,12 +658,40 @@
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             gap: 50px;
-            margin-bottom: 50px;
+            margin-bottom: 44px;
         }
         footer h4 {
             color: white;
             font-size: 1.05rem;
             margin-bottom: 20px;
+        }
+        .footer-brand {
+            display: flex; flex-direction: column; gap: 14px;
+        }
+        .footer-logo {
+            display: flex; align-items: center; gap: 12px;
+        }
+        .footer-logo img {
+            width: 48px; height: 48px;
+            object-fit: contain;
+            background: white;
+            border-radius: 10px;
+            padding: 6px;
+        }
+        .footer-logo span {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            color: white;
+            line-height: 1.1;
+        }
+        .footer-logo small {
+            display: block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.62rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.65);
+            margin-top: 4px;
         }
         footer p, footer a {
             font-size: 0.9rem;
@@ -618,7 +707,7 @@
         }
         .social-icons {
             display: flex; gap: 12px;
-            margin-top: 18px;
+            margin-top: 8px;
         }
         .social-icons a {
             width: 42px; height: 42px;
@@ -626,6 +715,7 @@
             border: 1px solid rgba(255,255,255,0.2);
             display: grid; place-items: center;
             color: white;
+            text-decoration: none;
             transition: all 0.25s ease;
         }
         .social-icons a:hover {
@@ -635,7 +725,7 @@
         }
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 24px;
+            padding-top: 22px;
             max-width: 1300px;
             margin: 0 auto;
             text-align: center;
@@ -714,38 +804,83 @@
             font-weight: 600;
         }
 
+        /* Floating WhatsApp button */
+        .float-wa {
+            position: fixed;
+            bottom: 24px; left: 24px;
+            background: var(--whatsapp);
+            color: white;
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            display: grid; place-items: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 14px 32px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: wa-pulse 2.4s ease-in-out infinite;
+        }
+        .float-wa:hover { transform: scale(1.1); }
+        @keyframes wa-pulse {
+            0%, 100% { box-shadow: 0 14px 32px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            50% { box-shadow: 0 14px 32px rgba(37, 211, 102, 0.4), 0 0 0 16px rgba(37, 211, 102, 0); }
+        }
+
         /* Animations */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
         .reveal.shown { opacity: 1; transform: translateY(0); }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links { gap: 22px; }
+            .logo-text { font-size: 0.98rem; }
+        }
         @media (max-width: 980px) {
             .hero-grid, .about-grid, .info-grid, .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 50px;
             }
-            .hero { padding: 130px 6% 80px; }
+            .hero { padding: 120px 6% 80px; }
             .hero-visual { max-width: 420px; margin: 0 auto; }
             .hero-badge.b-top { left: 0; }
             .hero-badge.b-bottom { right: 0; }
             .about-photo { margin: 0 auto; }
         }
-        @media (max-width: 720px) {
+        @media (max-width: 768px) {
+            nav { padding: 12px 6%; }
+            header.scrolled nav { padding: 8px 6%; }
+            .logo-img { width: 40px; height: 40px; }
+            header.scrolled .logo-img { width: 36px; height: 36px; }
+            .logo-text { font-size: 0.95rem; }
+            .logo-text small { font-size: 0.55rem; letter-spacing: 0.22em; }
             .nav-links {
                 position: fixed;
                 top: 0; right: -100%;
-                height: 100vh; width: 80%;
+                height: 100vh; width: 82%;
+                max-width: 360px;
                 background: white;
                 flex-direction: column;
-                padding: 100px 32px;
-                gap: 24px;
-                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+                align-items: flex-start;
+                padding: 100px 32px 40px;
+                gap: 22px;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.12);
                 transition: right 0.3s ease;
+                overflow-y: auto;
             }
             .nav-links.active { right: 0; }
-            .menu-toggle { display: flex; z-index: 1001; }
-            .info-card { padding: 36px 28px; }
-            footer { padding: 50px 6% 24px; }
+            .nav-links a { font-size: 1.05rem; padding: 8px 0; width: 100%; }
+            .nav-links li { width: 100%; }
+            .nav-links a.btn-pill {
+                width: 100%;
+                justify-content: center;
+                margin-top: 16px;
+                padding: 14px 22px;
+                font-size: 0.85rem;
+            }
+            .menu-toggle { display: flex; }
+            .float-wa { width: 52px; height: 52px; font-size: 1.35rem; bottom: 20px; left: 20px; }
+            .version-switcher { bottom: 20px; right: 20px; }
+            .vs-toggle { padding: 10px 16px; font-size: 0.72rem; }
         }
     </style>
 </head>
@@ -753,23 +888,25 @@
     <header id="header">
         <nav>
             <a href="#inicio" class="logo">
-                <div class="logo-mark"><i class="fas fa-tooth"></i></div>
+                <img src="img/Logo GES.png" alt="Gestión en Salud Dental" class="logo-img">
                 <div class="logo-text">
                     Gestión en Salud Dental
                     <small>Dra. Sofía Saganía</small>
                 </div>
             </a>
 
-            <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Abrir menú">
+            <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Abrir menú" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
 
             <ul class="nav-links" id="navLinks">
                 <li><a href="#inicio" onclick="closeMenu()">Inicio</a></li>
-                <li><a href="#servicios" onclick="closeMenu()">Servicios</a></li>
                 <li><a href="#sobre-mi" onclick="closeMenu()">Sobre mí</a></li>
-                <li><a href="#info" onclick="closeMenu()">Horarios</a></li>
-                <li><a href="turnero.html" class="btn-pill">Reservar turno</a></li>
+                <li><a href="#servicios" onclick="closeMenu()">Servicios</a></li>
+                <li><a href="#horarios" onclick="closeMenu()">Horarios</a></li>
+                <li><a href="#contactame" class="btn-pill" onclick="closeMenu()">
+                    <i class="fab fa-whatsapp"></i> Contactame
+                </a></li>
             </ul>
         </nav>
     </header>
@@ -780,11 +917,11 @@
         <div class="hero-grid">
             <div class="hero-text reveal">
                 <span class="eyebrow">Odontología integral · Villa del Parque</span>
-                <h1>Tu sonrisa, en <em>las mejores manos</em>.</h1>
-                <p class="lead">Atención odontológica profesional, cálida y personalizada con la Dra. Sofía Luciana Saganía. Especialista en Prostodoncia, recibida en la UBA.</p>
+                <h1>Cuidar tu sonrisa es un <em>trabajo en equipo</em>.</h1>
+                <p class="lead">Odontología integral pensada para vos. Me dedico a escucharte, con tiempo y dedicación para que te sientas en compañía en un espacio de confianza para que lleguemos a tu mejor versión.</p>
                 <div class="hero-cta">
-                    <a href="turnero.html" class="btn-primary">
-                        <i class="far fa-calendar-check"></i> Reservar turno
+                    <a href="#" class="btn-wa wa-link">
+                        <i class="fab fa-whatsapp"></i> Contactame por un turno
                     </a>
                     <a href="#servicios" class="btn-ghost">
                         Ver servicios <i class="fas fa-arrow-right"></i>
@@ -798,7 +935,7 @@
                 <div class="hero-badge b-top">
                     <i class="fas fa-graduation-cap"></i>
                     <div>
-                        <strong><h3>Odontóloga UBA</h3></strong>
+                        <strong>Odontóloga UBA</strong>
                     </div>
                 </div>
                 <div class="hero-badge b-bottom">
@@ -806,6 +943,37 @@
                     <div>
                         <strong>Prostodoncia</strong>
                         <span>Especialización</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre-mi" class="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-photo reveal">
+                    <img src="img/Dra. Saganía 2.png" alt="Dra. Sofía Luciana Saganía en consulta">
+                </div>
+                <div class="about-content reveal">
+                    <span class="eyebrow">Sobre mí</span>
+                    <h2>Dra. Sofía Luciana Saganía</h2>
+                    <p>Soy odontóloga recibida en la <strong>Universidad de Buenos Aires (UBA)</strong> y me especializo en <strong>Prostodoncia</strong>: la rama de la odontología dedicada a restaurar y reemplazar piezas dentarias para devolverte una sonrisa funcional y armónica.</p>
+                    <p>Creo en una odontología cercana, donde te sentís escuchada, comprendida y acompañada en cada paso del tratamiento. Mi consultorio en Villa del Parque está pensado para que la visita al dentista sea una experiencia tranquila, profesional y amable.</p>
+
+                    <div class="about-credentials">
+                        <div class="credential">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Odontóloga — Universidad de Buenos Aires (UBA)</span>
+                        </div>
+                        <div class="credential">
+                            <i class="fas fa-award"></i>
+                            <span>Especialización en Prostodoncia</span>
+                        </div>
+                        <div class="credential">
+                            <i class="fas fa-heart"></i>
+                            <span>Atención cálida, integral y personalizada</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -880,41 +1048,10 @@
         </div>
     </section>
 
-    <section id="sobre-mi" class="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-photo reveal">
-                    <img src="img/Dra. Saganía 2.png" alt="Dra. Sofía Luciana Saganía en consulta">
-                </div>
-                <div class="about-content reveal">
-                    <span class="eyebrow">Sobre mí</span>
-                    <h2>Dra. Sofía Luciana Saganía</h2>
-                    <p>Soy odontóloga recibida en la <strong>Universidad de Buenos Aires (UBA)</strong> y me especializo en <strong>Prostodoncia</strong>: la rama de la odontología dedicada a restaurar y reemplazar piezas dentarias para devolverte una sonrisa funcional y armónica.</p>
-                    <p>Creo en una odontología cercana, donde te sentís escuchada, comprendida y acompañada en cada paso del tratamiento. Mi consultorio en Villa del Parque está pensado para que la visita al dentista sea una experiencia tranquila, profesional y amable.</p>
-
-                    <div class="about-credentials">
-                        <div class="credential">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span>Odontóloga — Universidad de Buenos Aires (UBA)</span>
-                        </div>
-                        <div class="credential">
-                            <i class="fas fa-award"></i>
-                            <span>Especialización en Prostodoncia</span>
-                        </div>
-                        <div class="credential">
-                            <i class="fas fa-heart"></i>
-                            <span>Atención cálida, integral y personalizada</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="info" class="info">
+    <section id="horarios" class="info">
         <div class="container">
             <div class="section-head reveal">
-                <span class="eyebrow">Información de contacto</span>
+                <span class="eyebrow">Horarios y ubicación</span>
                 <h2>Cuándo y dónde encontrarnos.</h2>
             </div>
             <div class="info-grid">
@@ -943,24 +1080,53 @@
         </div>
     </section>
 
-    <section class="cta">
-        <div class="cta-content reveal">
-            <h2>Reservá tu turno hoy mismo.</h2>
-            <p>Elegí el día y horario que mejor te queden. Te confirmamos por WhatsApp y te esperamos con una sonrisa.</p>
-            <a href="turnero.html" class="btn-cta">
-                <i class="far fa-calendar-check"></i> Agendar mi turno
-            </a>
+    <section id="contactame" class="contact">
+        <div class="contact-content reveal">
+            <span class="eyebrow" style="color: var(--pink-200);">Contacto</span>
+            <h2>Contactame por un turno.</h2>
+            <p>La forma más rápida de coordinar tu visita es por WhatsApp. Escribime y te respondo personalmente para encontrar el día y horario que mejor te queden.</p>
+            <div class="contact-buttons">
+                <a href="#" class="btn-contact-wa wa-link">
+                    <i class="fab fa-whatsapp"></i> Escribime por WhatsApp
+                </a>
+                <a href="#" target="_blank" class="btn-contact-ig" id="igLink">
+                    <i class="fab fa-instagram"></i> Seguime en Instagram
+                </a>
+            </div>
+            <div class="contact-details">
+                <div class="contact-detail">
+                    <i class="far fa-clock"></i>
+                    <strong>Horarios</strong>
+                    <span>Lun a Vie · 14–19h<br>Miércoles · 9–19h</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <strong>Dirección</strong>
+                    <span>Pedro Lozano 3235, 1° C<br>Villa del Parque, CABA</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-graduation-cap"></i>
+                    <strong>Profesional</strong>
+                    <span>Dra. Sofía Saganía<br>Odontóloga UBA · Prostodoncia</span>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
         <div class="footer-grid">
             <div class="footer-brand">
-                <h4>Gestión en Salud Dental</h4>
+                <div class="footer-logo">
+                    <img src="img/Logo GES.png" alt="Logo GES">
+                    <span>
+                        Gestión en Salud Dental
+                        <small>Dra. Sofía Saganía</small>
+                    </span>
+                </div>
                 <p>Consultorio odontológico de la Dra. Sofía Luciana Saganía. Atención integral, cálida y personalizada en Villa del Parque, CABA.</p>
                 <div class="social-icons">
-                    <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" target="_blank" aria-label="Instagram" class="ig-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="wa-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     <a href="mailto:contacto@gestionensaluddental.com" aria-label="Email"><i class="far fa-envelope"></i></a>
                 </div>
             </div>
@@ -968,10 +1134,10 @@
                 <h4>Navegación</h4>
                 <ul class="footer-list">
                     <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#sobre-mi">Sobre mí</a></li>
-                    <li><a href="#info">Horarios y ubicación</a></li>
-                    <li><a href="turnero.html">Reservar turno</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#horarios">Horarios</a></li>
+                    <li><a href="#contactame">Contactame</a></li>
                 </ul>
             </div>
             <div>
@@ -988,6 +1154,11 @@
         </div>
     </footer>
 
+    <!-- Floating WhatsApp -->
+    <a href="#" class="float-wa wa-link" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <!-- Version Switcher (solo para revisión) -->
     <div class="version-switcher" id="versionSwitcher">
         <button class="vs-toggle" onclick="toggleVersionPanel()">
@@ -998,20 +1169,40 @@
             <small>Comparativa para la elección final</small>
             <a href="index.html" class="active">
                 <span><strong>v1</strong> · Pastel verde/rosa</span>
-                <span class="vs-tag">Actual</span>
+                <span class="vs-tag">Elegida</span>
             </a>
             <a href="v2-turquesa/index.html">
                 <span><strong>v2</strong> · Turquesa & coral</span>
-                <span class="vs-tag" style="background: #B2EBF2; color: #00695C;">Flyer</span>
-            </a>
-            <a href="v3-mezcla/index.html">
-                <span><strong>v3</strong> · Editorial moderna</span>
-                <span class="vs-tag" style="background: #FFE0D6; color: #D67D5C;">Mezcla</span>
+                <span class="vs-tag" style="background: #B2EBF2; color: #00695C;">Referencia</span>
             </a>
         </div>
     </div>
 
     <script>
+        // === CONFIGURACIÓN ===
+        // Reemplazar WA_NUMBER con el número de WhatsApp del consultorio (sin '+', con código de país).
+        // Ej: '5491165118935' para +54 9 11 6511-8935
+        const WA_NUMBER = '5491140903128';
+        const IG_USER = 'gestionensaluddental';
+
+        // Construye links de WhatsApp con mensaje pre-armado
+        const waMsg = 'Hola Dra. Saganía! Me gustaría coordinar un turno. ¿Qué disponibilidad tienen?';
+        const waBase = WA_NUMBER && !WA_NUMBER.startsWith('REEMPLAZAR') ? WA_NUMBER : '';
+        const waUrl = `https://wa.me/${waBase}?text=${encodeURIComponent(waMsg)}`;
+        document.querySelectorAll('.wa-link').forEach(el => {
+            el.href = waUrl;
+            el.target = '_blank';
+            el.rel = 'noopener';
+        });
+
+        // Instagram
+        const igUrl = `https://instagram.com/${IG_USER}`;
+        document.querySelectorAll('.ig-link, #igLink').forEach(el => {
+            el.href = igUrl;
+            el.target = '_blank';
+            el.rel = 'noopener';
+        });
+
         // Header scroll
         window.addEventListener('scroll', () => {
             document.getElementById('header').classList.toggle('scrolled', window.scrollY > 60);
@@ -1019,12 +1210,18 @@
 
         // Mobile menu
         function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
-            document.getElementById('menuToggle').classList.toggle('active');
+            const links = document.getElementById('navLinks');
+            const btn = document.getElementById('menuToggle');
+            const open = links.classList.toggle('active');
+            btn.classList.toggle('active');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            document.body.style.overflow = open ? 'hidden' : '';
         }
         function closeMenu() {
             document.getElementById('navLinks').classList.remove('active');
             document.getElementById('menuToggle').classList.remove('active');
+            document.getElementById('menuToggle').setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
         }
 
         // Reveal on scroll
